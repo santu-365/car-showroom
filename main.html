@@ -3,105 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestige Motors - Advanced Car Sales Portal</title>
+    <title>Aura Dynamics - Next Generation Vehicle Exchange</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
     <!--
-      NOTE: In a real-world application, this CSS and JavaScript would be in separate files.
-      This is combined into one file to meet the specific request.
+      PROTOTYPE NOTE:
+      This is a comprehensive, single-file demonstration designed to showcase advanced features
+      and a futuristic UI. In a real-world, production-level application, the CSS and JavaScript
+      would be split into multiple, organized files for maintainability, collaboration, and performance.
+      This combined format is specifically to fulfill a detailed request for a single, extensive code file.
     -->
     <style>
-        /* [---- General Styling & Resets ----] */
+        /* [---- :ROOT & CSS VARIABLES ----] */
         :root {
-            --primary-color: #007bff;
-            --secondary-color: #0a2d57;
-            --background-color: #f8f9fa;
-            --text-color: #333;
-            --light-gray: #e9ecef;
-            --white: #ffffff;
-            --danger-color: #dc3545;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --bg-dark: #0a0a14;
+            --bg-panel: #101424;
+            --primary-accent: #00f2ea;
+            --secondary-accent: #ff00c1;
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --border-color: rgba(0, 242, 234, 0.2);
+            --glow-primary: 0 0 5px var(--primary-accent), 0 0 10px var(--primary-accent), 0 0 15px var(--primary-accent);
+            --glow-secondary: 0 0 5px var(--secondary-accent), 0 0 10px var(--secondary-accent);
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+            --shadow-panel: 0 4px 30px rgba(0, 0, 0, 0.4);
         }
 
+        /* [---- GENERAL STYLING & RESETS ----] */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            background-image:
+                linear-gradient(rgba(0, 242, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 234, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--text-primary);
+            line-height: 1.7;
             overflow-x: hidden;
+            animation: background-pan 300s linear infinite;
+        }
+
+        @keyframes background-pan {
+            from { background-position: 0 0; }
+            to { background-position: -1000px -1000px; }
         }
 
         .container {
-            width: 90%;
-            max-width: 1400px;
+            width: 92%;
+            max-width: 1600px;
             margin: auto;
-            padding: 2rem 0;
+            padding: 3rem 0;
         }
 
         h1, h2, h3, h4 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-family: var(--font-display);
+            color: var(--text-primary);
+            text-shadow: 0 0 3px var(--primary-accent);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        a {
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--white);
+            text-shadow: var(--glow-primary);
+        }
+
+        /* [---- UI ELEMENTS: BUTTONS, FORMS, MODALS ----] */
         .btn {
             display: inline-block;
-            padding: 12px 24px;
-            border: none;
+            padding: 14px 28px;
+            border: 1px solid var(--primary-accent);
             border-radius: 5px;
-            background-color: var(--primary-color);
-            color: var(--white);
-            text-decoration: none;
+            background: transparent;
+            color: var(--primary-accent);
+            font-family: var(--font-display);
             font-size: 1rem;
-            font-weight: 500;
+            font-weight: 700;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s ease-in-out;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-accent), transparent);
+            transition: left 0.4s ease-in-out;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
+            color: var(--bg-dark);
+            background: var(--primary-accent);
+            box-shadow: var(--glow-primary);
         }
 
         .btn-secondary {
-            background-color: var(--secondary-color);
+            border-color: var(--secondary-accent);
+            color: var(--secondary-accent);
         }
 
         .btn-secondary:hover {
-            background-color: #061e3a;
+            background: var(--secondary-accent);
+            box-shadow: var(--glow-secondary);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(16, 20, 36, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 10px rgba(0, 242, 234, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-display);
+            color: var(--primary-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
         
-        .btn-danger {
-            background-color: var(--danger-color);
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 20, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .btn-danger:hover {
-            background-color: #c82333;
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
         }
 
-        section {
-            display: none; /* Hidden by default, shown by JS */
-            animation: fadeIn 0.8s;
+        .modal-content {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: var(--shadow-panel);
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+        
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
         }
 
-        section.active {
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+
+        /* [---- PAGE STRUCTURE & NAVIGATION ----] */
+        section.page-section {
+            display: none;
+            animation: pageFadeIn 1s forwards;
+        }
+
+        section.page-section.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* [---- Header & Navigation ----] */
         .main-header {
-            background-color: var(--white);
-            box-shadow: var(--box-shadow);
-            padding: 1rem 5%;
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 4%;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -111,103 +256,146 @@
         }
 
         .main-header .logo {
+            font-family: var(--font-display);
             font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            text-decoration: none;
+            color: var(--primary-accent);
+            text-shadow: var(--glow-primary);
         }
 
         .main-nav a {
-            color: var(--text-color);
+            color: var(--text-primary);
             text-decoration: none;
-            margin: 0 15px;
-            font-weight: 500;
+            margin: 0 1rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
             position: relative;
             padding-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .main-nav a::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
+            background-color: var(--primary-accent);
+            transition: width 0.4s ease;
         }
 
         .main-nav a:hover::after, .main-nav a.active::after {
             width: 100%;
         }
 
-        /* [---- Homepage Section ----] */
+        /* [---- HOME PAGE ----] */
         #home-page .hero {
-            background: linear-gradient(rgba(10, 45, 87, 0.7), rgba(10, 45, 87, 0.7)), url(https://images.unsplash.com/photo-1555529669-e69e7aa0ba9e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=3600) no-repeat center center/cover;
-            height: 70vh;
+            height: 80vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #home-page .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, var(--bg-dark) 30%, transparent 70%);
+            z-index: 1;
+        }
+
+        #home-page .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translateX(-50%) translateY(-50%);
+            opacity: 0.5;
+        }
+        
+        #home-page .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-left: 4%;
         }
 
         #home-page .hero-content h1 {
-            font-size: 3.5rem;
-            color: var(--white);
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            max-width: 600px;
         }
-
-        #home-page .quick-search {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            backdrop-filter: blur(5px);
-        }
-
-        .quick-search input, .quick-search select {
-            padding: 15px;
-            font-size: 1rem;
-            border: 1px solid var(--light-gray);
-            border-radius: 5px;
-            min-width: 200px;
+        
+        #home-page .hero-content p {
+             max-width: 500px;
+             font-size: 1.2rem;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            font-size: 3rem;
         }
-        
-        /* [---- Car Card Styling ----] */
+
+        /* [---- CAR CARD STYLING ----] */
         .car-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
 
         .car-card {
-            background-color: var(--white);
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            box-shadow: var(--box-shadow);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
-
+        
+        .car-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 242, 234, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
         .car-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 242, 234, 0.1);
+            border-color: var(--primary-accent);
+        }
+        
+        .car-card:hover::before {
+            opacity: 1;
         }
 
+        .car-card-img-container {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+        }
+        
         .car-card-img {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .car-card:hover .car-card-img {
+            transform: scale(1.05);
         }
         
         .car-card-content {
@@ -218,24 +406,25 @@
         }
 
         .car-card-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
 
         .car-card-price {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-color);
+            font-family: var(--font-display);
+            color: var(--primary-accent);
             margin-bottom: 1rem;
         }
         
         .car-card-specs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+            gap: 0.8rem;
             margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
         }
         
         .car-card-actions {
@@ -244,53 +433,26 @@
             gap: 1rem;
         }
         
-        /* [---- Listings Page ----] */
-        #listings-page .listings-layout {
+        /* [---- LISTINGS PAGE & FILTERS ----] */
+        #listings-page .listings-layout, #ev-hub-page .listings-layout {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: flex-start;
         }
 
-        #listings-page .filters-sidebar {
-            background: var(--white);
+        .filters-sidebar {
+            background: var(--bg-panel);
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            width: 280px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-panel);
+            width: 320px;
             flex-shrink: 0;
             position: sticky;
-            top: 120px; /* Adjust based on header height */
-        }
-
-        .filters-sidebar h3 {
-            margin-top: 0;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--light-gray);
-        }
-
-        .filter-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .filter-group label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 0.5rem;
+            top: 120px;
         }
         
-        .filter-group input, .filter-group select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        
-        .price-range-inputs {
-            display: flex;
-            gap: 10px;
-        }
-        
-        #listings-page .results-area {
+        .results-area {
             flex-grow: 1;
         }
         
@@ -299,26 +461,58 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
+            background: var(--bg-panel);
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        
+        #results-count {
+            font-weight: 600;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 20, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
-        /* [---- Car Detail Page ----] */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* [---- CAR DETAIL PAGE ----] */
         #detail-page .detail-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: minmax(0, 2.5fr) minmax(0, 1.5fr);
             gap: 3rem;
+            align-items: flex-start;
         }
         
         .detail-gallery .main-image {
             width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
             margin-bottom: 1rem;
         }
 
         .detail-gallery .thumbnail-container {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 1rem;
         }
 
@@ -331,509 +525,518 @@
         }
         
         .thumbnail-container img.active, .thumbnail-container img:hover {
-            border-color: var(--primary-color);
+            border-color: var(--primary-accent);
         }
         
         .detail-info-card {
-             background: var(--white);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            position: sticky;
-            top: 120px;
+             background: var(--bg-panel);
+             padding: 2.5rem;
+             border: 1px solid var(--border-color);
+             border-radius: 10px;
+             box-shadow: var(--shadow-panel);
+             position: sticky;
+             top: 120px;
         }
         
-        .detail-info-card h1 {
-            font-size: 2.2rem;
-        }
+        .detail-info-card h1 { font-size: 2.5rem; }
         
         .detail-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
+            font-size: 3rem;
+            font-family: var(--font-display);
+            color: var(--primary-accent);
             margin-bottom: 1.5rem;
         }
         
-        .spec-list {
-            list-style: none;
+        .spec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
             margin: 1.5rem 0;
             padding: 1.5rem 0;
-            border-top: 1px solid var(--light-gray);
-            border-bottom: 1px solid var(--light-gray);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .spec-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
+        .spec-item {
+            background: rgba(0, 242, 234, 0.05);
+            padding: 10px;
+            border-radius: 5px;
         }
-        
-        .spec-list li strong {
-            color: #555;
+
+        .spec-item .label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .spec-item .value {
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .detail-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .detail-block {
+            background: var(--bg-panel);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        /* [---- AI CONCIERGE PAGE ----] */
+        #ai-concierge-page .ai-console {
+            max-width: 900px;
+            margin: auto;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow-panel);
+        }
+        
+        .ai-chat-window {
+            height: 500px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
             display: flex;
             flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .ai-message {
+            background: rgba(0, 242, 234, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-accent);
+        }
+        
+        .ai-message.user {
+            background: rgba(255, 0, 193, 0.1);
+            border-left: none;
+            border-right: 3px solid var(--secondary-accent);
+            align-self: flex-end;
+            text-align: right;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            animation: typing 1s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.1s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .ai-input-form {
+            display: flex;
             gap: 1rem;
         }
         
-        .finance-calculator, .seller-contact {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            margin-top: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group textarea {
+        /* [---- TEST DRIVE SCHEDULER MODAL ----] */
+        .calendar {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        
-        .calculator-result {
-            margin-top: 1.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        /* [---- Comparison Page ----] */
-        #compare-page .compare-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--white);
-            box-shadow: var(--box-shadow);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        #compare-page .compare-table th, #compare-page .compare-table td {
-            padding: 1.5rem;
             text-align: center;
-            border-bottom: 1px solid var(--light-gray);
         }
-        
-        #compare-page .compare-table th {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            font-size: 1.2rem;
-        }
-        
-        #compare-page .compare-table .feature-col {
-            text-align: left;
-            font-weight: 600;
-            background: #f1f1f1;
-        }
-
-        #compare-page .compare-table img {
-            max-width: 200px;
-            border-radius: 5px;
-        }
-
-        #compare-page .placeholder-card {
-            border: 2px dashed var(--light-gray);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            color: #888;
-        }
-
-        /* [---- Dashboard Page ----] */
-        #dashboard-page .dashboard-layout {
+        .calendar-header {
             display: flex;
-            gap: 2rem;
-            align-items: flex-start;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
-
-        .dashboard-nav {
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            width: 250px;
-            flex-shrink: 0;
+        #month-year { font-size: 1.5rem; font-family: var(--font-display); }
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
         }
-
-        .dashboard-nav ul {
-            list-style: none;
-        }
-
-        .dashboard-nav li a {
-            display: block;
-            padding: 1rem;
-            text-decoration: none;
-            color: var(--text-color);
+        .calendar-day, .weekday {
+            padding: 15px 5px;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
-
-        .dashboard-nav li a:hover, .dashboard-nav li a.active {
-            background-color: var(--light-gray);
-            color: var(--primary-color);
+        .weekday { font-weight: 600; color: var(--primary-accent); }
+        .calendar-day.active-day {
+            background: var(--primary-accent);
+            color: var(--bg-dark);
+            cursor: pointer;
         }
+        .calendar-day.active-day:hover { background: var(--secondary-accent); }
+        .calendar-day.inactive-day { color: #555; }
+        .calendar-day.selected-day { background: var(--secondary-accent); color: white; }
 
-        .dashboard-content {
-            flex-grow: 1;
-            background: var(--white);
-            padding: 2rem;
+        /* [---- LIVE CHAT WIDGET ----] */
+        .chat-widget-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1500;
+            box-shadow: var(--glow-primary);
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            height: 450px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            box-shadow: var(--box-shadow);
+            display: none;
+            flex-direction: column;
+            box-shadow: var(--shadow-panel);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
         }
+        .chat-window.active { display: flex; opacity: 1; transform: translateY(0); }
+        .chat-header {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-display);
+        }
+        .chat-body { flex-grow: 1; padding: 1rem; overflow-y: auto; }
+        .chat-footer { padding: 1rem; border-top: 1px solid var(--border-color); }
 
-        /* [---- Footer ----] */
+        /* [---- FOOTER ----] */
         .main-footer {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 3rem 5%;
-            margin-top: 4rem;
+            background: var(--bg-panel);
+            color: var(--text-secondary);
+            padding: 4rem 4%;
+            margin-top: 5rem;
+            border-top: 2px solid var(--primary-accent);
         }
-
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
-
-        .footer-content h4 {
-            color: var(--white);
-            margin-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-        }
-        
-        .footer-content ul {
-            list-style: none;
-        }
-
-        .footer-content a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-content a:hover {
-            color: var(--white);
-        }
-
         .footer-bottom {
             text-align: center;
-            margin-top: 2rem;
+            margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 1px solid #444;
+            border-top: 1px solid var(--border-color);
         }
-
     </style>
 </head>
 <body>
 
     <header class="main-header">
-        <a href="#" class="logo" data-page="home-page">Prestige Motors</a>
+        <a href="#" class="logo nav-link" data-page="home-page">Aura Dynamics</a>
         <nav class="main-nav">
             <a href="#" class="nav-link active" data-page="home-page">Home</a>
-            <a href="#" class="nav-link" data-page="listings-page">All Cars</a>
+            <a href="#" class="nav-link" data-page="listings-page">Exchange</a>
+            <a href="#" class="nav-link" data-page="ev-hub-page">EV Hub</a>
+            <a href="#" class="nav-link" data-page="ai-concierge-page">AI Concierge</a>
+            <a href="#" class="nav-link" data-page="news-page">Insights</a>
             <a href="#" class="nav-link" data-page="compare-page">Compare (<span id="compare-count">0</span>)</a>
-            <a href="#" class="nav-link" data-page="dashboard-page">My Account</a>
         </nav>
     </header>
 
     <main>
-        <!-- [================================================] -->
-        <!-- [                  HOME PAGE                     ] -->
-        <!-- [================================================] -->
-        <section id="home-page" class="active">
+        <!-- ===================== HOME PAGE ===================== -->
+        <section id="home-page" class="page-section active">
             <div class="hero">
+                <video autoplay muted loop class="hero-video">
+                  <source src="https://assets.mixkit.co/videos/preview/mixkit-a-fast-car-in-a-road-with-a-bridge-42771-large.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
                 <div class="hero-content">
-                    <h1>Your Premier Destination for Luxury Vehicles</h1>
-                    <p>Experience the pinnacle of automotive excellence. Find your dream car today.</p>
-                    <form class="quick-search">
-                        <input type="text" placeholder="Search by Make or Model...">
-                        <select>
-                            <option>All Prices</option>
-                            <option>$50,000 - $75,000</option>
-                            <option>$75,000 - $100,000</option>
-                            <option>$100,000+</option>
-                        </select>
-                        <button type="submit" class="btn">Search Now</button>
-                    </form>
+                    <h1>The Future of Motion is Here.</h1>
+                    <p>Acquire and exchange the world's most advanced and luxurious vehicles through a seamless, data-driven platform.</p>
+                    <button class="btn nav-link" data-page="listings-page">Explore the Exchange</button>
                 </div>
             </div>
-
             <div class="container">
-                <h2 class="section-title">Featured Listings</h2>
+                <h2 class="section-title">Featured Units</h2>
                 <div class="car-grid" id="featured-listings-grid">
-                    <!-- Featured cars will be dynamically inserted here by JavaScript -->
+                    <!-- Featured cars inserted by JS -->
                 </div>
             </div>
         </section>
 
-        <!-- [================================================] -->
-        <!-- [               CAR LISTINGS PAGE                ] -->
-        <!-- [================================================] -->
-        <section id="listings-page">
+        <!-- ===================== CAR LISTINGS PAGE ===================== -->
+        <section id="listings-page" class="page-section">
             <div class="container">
-                <h2 class="section-title">Our Full Inventory</h2>
+                <h2 class="section-title">Vehicle Exchange</h2>
                 <div class="listings-layout">
                     <aside class="filters-sidebar">
-                        <h3>Filter Results</h3>
+                        <h3>Filter Matrix</h3>
                         <div class="filter-group">
-                            <label for="filter-make">Make</label>
-                            <select id="filter-make">
-                                <option value="all">All Makes</option>
-                                <option value="Audi">Audi</option>
-                                <option value="BMW">BMW</option>
-                                <option value="Mercedes-Benz">Mercedes-Benz</option>
-                                <option value="Porsche">Porsche</option>
-                                <option value="Ferrari">Ferrari</option>
-                            </select>
+                            <label for="filter-make">Manufacturer</label>
+                            <select id="filter-make"></select>
                         </div>
                         <div class="filter-group">
-                            <label>Price Range</label>
-                            <div class="price-range-inputs">
-                                <input type="number" id="filter-min-price" placeholder="Min">
-                                <input type="number" id="filter-max-price" placeholder="Max">
-                            </div>
+                            <label>Price Range (USD)</label>
+                            <input type="number" id="filter-min-price" placeholder="Min Price">
+                        </div>
+                        <div class="filter-group">
+                             <input type="number" id="filter-max-price" placeholder="Max Price">
                         </div>
                         <div class="filter-group">
                             <label for="filter-year">Minimum Year</label>
-                            <select id="filter-year">
-                                <option value="2015">2015</option>
-                                <option value="2018">2018</option>
-                                <option value="2020">2020</option>
-                                <option value="2022">2022</option>
-                            </select>
+                            <select id="filter-year"></select>
                         </div>
                          <div class="filter-group">
-                            <label for="filter-fuel">Fuel Type</label>
-                            <select id="filter-fuel">
-                                <option value="all">All Types</option>
-                                <option value="Gasoline">Gasoline</option>
-                                <option value="Electric">Electric</option>
-                                <option value="Hybrid">Hybrid</option>
-                            </select>
+                            <label for="filter-fuel">Drivetrain</label>
+                            <select id="filter-fuel"></select>
                         </div>
-                        <button class="btn" style="width: 100%;" id="apply-filters-btn">Apply Filters</button>
+                        <button class="btn" style="width: 100%;" id="apply-filters-btn">Engage Filters</button>
                     </aside>
-                    <div class="results-area">
+                    <div class="results-area" style="position:relative;">
+                        <div class="loading-overlay" id="listings-loader"><div class="loading-spinner"></div></div>
                         <div class="results-header">
-                            <span id="results-count">Showing 0 cars</span>
+                            <span id="results-count"></span>
                             <div>
-                                <label for="sort-by">Sort by: </label>
+                                <label for="sort-by">Sort Sequence: </label>
                                 <select id="sort-by">
-                                    <option value="price-asc">Price: Low to High</option>
-                                    <option value="price-desc">Price: High to Low</option>
-                                    <option value="year-desc">Newest First</option>
+                                    <option value="price-asc">Price: Ascending</option>
+                                    <option value="price-desc">Price: Descending</option>
+                                    <option value="year-desc">Year: Newest</option>
+                                    <option value="mileage-asc">Mileage: Lowest</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="car-grid" id="all-listings-grid">
-                            <!-- All car listings will be inserted here by JavaScript -->
+                        <div class="car-grid" id="all-listings-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ===================== EV HUB PAGE ===================== -->
+        <section id="ev-hub-page" class="page-section">
+            <div class="container">
+                <h2 class="section-title">Electric & Future Vehicle Hub</h2>
+                <p style="text-align:center; max-width:800px; margin:-3rem auto 4rem auto;">A curated selection of the most advanced electric and hybrid vehicles on the planet. Filter by range, power, and cutting-edge features.</p>
+                <div class="listings-layout">
+                     <aside class="filters-sidebar">
+                        <h3>EV Filters</h3>
+                        <div class="filter-group">
+                            <label for="ev-filter-make">Manufacturer</label>
+                            <select id="ev-filter-make"></select>
                         </div>
+                        <div class="filter-group">
+                            <label for="ev-filter-range">Minimum Range (miles)</label>
+                            <input type="range" id="ev-filter-range" min="100" max="500" step="10" value="250">
+                            <span id="ev-range-value">250 miles</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="ev-filter-autonomy">Minimum Autonomy Level</label>
+                            <select id="ev-filter-autonomy">
+                                <option value="0">All Levels</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                                <option value="4">Level 4</option>
+                            </select>
+                        </div>
+                        <button class="btn" style="width: 100%;" id="apply-ev-filters-btn">Filter EVs</button>
+                    </aside>
+                    <div class="results-area">
+                         <div class="car-grid" id="ev-listings-grid"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- [================================================] -->
-        <!-- [                CAR DETAIL PAGE                 ] -->
-        <!-- [================================================] -->
-        <section id="detail-page">
+        <!-- ===================== AI CONCIERGE PAGE ===================== -->
+        <section id="ai-concierge-page" class="page-section">
+            <div class="container">
+                <h2 class="section-title">AURA AI Concierge</h2>
+                <div class="ai-console">
+                    <div class="ai-chat-window" id="ai-chat-window">
+                        <div class="ai-message">
+                            <p><strong>AURA AI:</strong> Welcome. I am AURA, your personal vehicle acquisition assistant. How may I assist your search today? For example, you can ask me to "find a fast car under $150,000" or "show me the latest electric SUVs".</p>
+                        </div>
+                    </div>
+                    <form class="ai-input-form" id="ai-input-form">
+                        <input type="text" id="ai-user-input" placeholder="Initiate query..." autocomplete="off">
+                        <button type="submit" class="btn">Transmit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ===================== NEWS PAGE ===================== -->
+        <section id="news-page" class="page-section">
+             <div class="container">
+                 <h2 class="section-title">Insights & Developments</h2>
+                 <!-- This would be populated from a CMS in a real app -->
+             </div>
+        </section>
+        
+        <!-- ===================== COMPARE PAGE ===================== -->
+        <section id="compare-page" class="page-section">
+             <div class="container">
+                 <h2 class="section-title">Comparison Matrix</h2>
+                 <div id="compare-container"></div>
+             </div>
+        </section>
+
+        <!-- ===================== CAR DETAIL PAGE ===================== -->
+        <section id="detail-page" class="page-section">
             <div class="container">
                 <div class="detail-layout">
                     <div class="detail-main-content">
-                        <!-- Gallery is populated by JS -->
                         <div class="detail-gallery">
                             <img src="" alt="Main car view" class="main-image" id="detail-main-img">
-                            <div class="thumbnail-container" id="detail-thumbnails">
-                                <!-- Thumbnails will be populated here -->
-                            </div>
+                            <div class="thumbnail-container" id="detail-thumbnails"></div>
                         </div>
-
-                        <!-- Finance Calculator -->
-                        <div class="finance-calculator">
-                            <h3>Financing Calculator</h3>
+                        <div class="detail-block">
+                            <h3>Description</h3>
+                            <p id="detail-description"></p>
+                        </div>
+                        <div class="detail-block" id="finance-calculator-block">
+                            <h3>Finance Projection</h3>
                             <div class="form-group">
-                                <label for="calc-price">Vehicle Price ($)</label>
-                                <input type="number" id="calc-price" placeholder="e.g., 150000">
-                            </div>
-                             <div class="form-group">
                                 <label for="calc-downpayment">Down Payment ($)</label>
                                 <input type="number" id="calc-downpayment" placeholder="e.g., 20000">
                             </div>
                              <div class="form-group">
                                 <label for="calc-interest">Interest Rate (%)</label>
-                                <input type="number" id="calc-interest" value="5.5" placeholder="e.g., 5.5">
+                                <input type="number" id="calc-interest" value="5.5">
                             </div>
                              <div class="form-group">
                                 <label for="calc-term">Loan Term (Months)</label>
-                                <select id="calc-term">
-                                    <option value="36">36</option>
-                                    <option value="48">48</option>
-                                    <option value="60" selected>60</option>
-                                    <option value="72">72</option>
-                                </select>
+                                <select id="calc-term"><option value="60">60</option></select>
                             </div>
-                            <button class="btn" id="calculate-finance-btn">Calculate</button>
-                            <div class="calculator-result" id="finance-result"></div>
-                        </div>
-
-                         <!-- Seller Contact -->
-                        <div class="seller-contact">
-                            <h3>Contact Seller</h3>
-                            <form>
-                                <div class="form-group"><input type="text" placeholder="Your Name"></div>
-                                <div class="form-group"><input type="email" placeholder="Your Email"></div>
-                                <div class="form-group"><textarea rows="4" placeholder="I'm interested in this vehicle..."></textarea></div>
-                                <button type="submit" class="btn">Send Inquiry</button>
-                            </form>
+                            <button class="btn" id="calculate-finance-btn">Calculate Projection</button>
+                            <div id="finance-result" style="font-size:1.5rem; margin-top:1.5rem;"></div>
                         </div>
                     </div>
-                    <!-- Details are populated by JS -->
                     <aside class="detail-info-card" id="detail-info-card">
                         <h1 id="detail-title"></h1>
                         <p class="detail-price" id="detail-price"></p>
-                        <ul class="spec-list" id="detail-specs">
-                            <!-- Specs will be populated here -->
-                        </ul>
+                        <div class="spec-grid" id="detail-specs"></div>
                         <div class="detail-actions">
-                             <button class="btn btn-secondary">Add to Wishlist</button>
-                             <button class="btn">Schedule Test Drive</button>
+                             <button class="btn btn-secondary" id="ar-view-btn">View in Your Space</button>
+                             <button class="btn" id="schedule-drive-btn">Schedule Test Drive</button>
                         </div>
                     </aside>
                 </div>
             </div>
         </section>
-
-        <!-- [================================================] -->
-        <!-- [                COMPARE PAGE                    ] -->
-        <!-- [================================================] -->
-        <section id="compare-page">
-            <div class="container">
-                <h2 class="section-title">Compare Vehicles</h2>
-                <div id="compare-container">
-                    <!-- Comparison table will be generated here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- [================================================] -->
-        <!-- [              USER DASHBOARD PAGE               ] -->
-        <!-- [================================================] -->
-        <section id="dashboard-page">
-            <div class="container">
-                <h2 class="section-title">My Account</h2>
-                <div class="dashboard-layout">
-                    <nav class="dashboard-nav">
-                        <ul>
-                            <li><a href="#" class="active">My Profile</a></li>
-                            <li><a href="#">My Wishlist</a></li>
-                            <li><a href="#">Saved Searches</a></li>
-                            <li><a href="#">Account Settings</a></li>
-                        </ul>
-                    </nav>
-                    <div class="dashboard-content">
-                        <h3>My Profile</h3>
-                        <p>Welcome back, User!</p>
-                        <h4>My Wishlist</h4>
-                        <div id="dashboard-wishlist" class="car-grid">
-                            <!-- Wishlist items could be populated here -->
-                            <p>You have not added any cars to your wishlist yet.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
+    
+    <!-- ===================== MODALS ===================== -->
+    <div class="modal-overlay" id="ar-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h3>Augmented Reality Viewer</h3>
+            <p>To view this vehicle in your space, please open this page on an AR-compatible mobile device and point it at a flat surface.</p>
+            <div style="text-align:center; margin-top:2rem;">
+                <!-- Placeholder for QR code -->
+                <p><strong>[QR Code Placeholder]</strong></p>
+                <p>Scan to launch on mobile.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="schedule-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h3 id="schedule-modal-title">Schedule Test Drive</h3>
+            <p>Select an available date below to request a test drive appointment.</p>
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <span id="month-year"></span>
+                    <button id="next-month">&gt;</button>
+                </div>
+                <div class="calendar-days weekdays">
+                    <div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div>
+                </div>
+                <div class="calendar-days" id="calendar-body"></div>
+            </div>
+            <div style="margin-top:2rem; text-align:center;">
+                <button class="btn" id="confirm-schedule-btn" disabled>Confirm Date</button>
+                <p id="schedule-confirmation" style="margin-top:1rem;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== LIVE CHAT WIDGET ===================== -->
+    <div class="chat-widget-fab" id="chat-fab">
+        <!-- SVG Icon for Chat -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V4c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg>
+    </div>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">Live Support</div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Type a message...">
+        </div>
+    </div>
 
     <footer class="main-footer">
         <div class="footer-content">
-            <div class="footer-section">
-                <h4>About Prestige Motors</h4>
-                <p>We are the leading marketplace for luxury and exotic cars, connecting discerning buyers with trusted sellers.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#" data-page="home-page" class="nav-link">Home</a></li>
-                    <li><a href="#" data-page="listings-page" class="nav-link">All Cars</a></li>
-                    <li><a href="#">Sell Your Car</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Financing</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-             <div class="footer-section">
-                <h4>Newsletter</h4>
-                <p>Stay up to date with our latest listings and offers.</p>
-                <form>
-                    <input type="email" placeholder="Enter your email" style="width:100%; padding:10px; border-radius:5px; border:none;">
-                    <button type="submit" class="btn" style="width:100%; margin-top:10px;">Subscribe</button>
-                </form>
-            </div>
+            <!-- Footer content here -->
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Prestige Motors. All Rights Reserved.</p>
+            <p>&copy; 2025 Aura Dynamics Corporation. All Data Points Secured.</p>
         </div>
     </footer>
 
     <script>
     // [================================================================================]
     // [                                                                                ]
-    // [                            JAVASCRIPT LOGIC                                    ]
-    // [                                                                                ]
-    // [ In a real application, this would be in a separate .js file.                   ]
+    // [                       AURA DYNAMICS JAVASCRIPT CORE                            ]
     // [                                                                                ]
     // [================================================================================]
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- Sample Car Database ---
+        // --- Core Car Database ---
         const carDatabase = [
-            { id: 1, make: 'Porsche', model: '911 GT3 RS', year: 2023, price: 241300, mileage: 1500, fuel: 'Gasoline', engine: '4.0L Flat-6', transmission: 'PDK Automatic', image: 'https://images.unsplash.com/photo-1617013755323-652cf3941b9c?q=80&w=3540&auto=format&fit=crop', featured: true },
-            { id: 2, make: 'Ferrari', model: '296 GTB', year: 2024, price: 342000, mileage: 800, fuel: 'Hybrid', engine: '3.0L V6 Hybrid', transmission: '8-Speed DCT', image: 'https://images.unsplash.com/photo-1633663951290-05b1f148967b?q=80&w=3540&auto=format&fit=crop', featured: true },
-            { id: 3, make: 'BMW', model: 'M4 Competition', year: 2024, price: 85000, mileage: 3000, fuel: 'Gasoline', engine: '3.0L Twin-Turbo I6', transmission: '8-Speed Automatic', image: 'https://images.unsplash.com/photo-1632512918443-415814237c22?q=80&w=3540&auto=format&fit=crop', featured: true },
-            { id: 4, make: 'Audi', model: 'RS6 Avant', year: 2023, price: 125800, mileage: 9500, fuel: 'Gasoline', engine: '4.0L Twin-Turbo V8', transmission: '8-Speed Tiptronic', image: 'https://images.unsplash.com/photo-1600673391196-a198592d3e3a?q=80&w=3456&auto=format&fit=crop', featured: true },
-            { id: 5, make: 'Mercedes-Benz', model: 'AMG GT Black Series', year: 2022, price: 325000, mileage: 4000, fuel: 'Gasoline', engine: '4.0L Twin-Turbo V8', transmission: '7-Speed DCT', image: 'https://images.unsplash.com/photo-1618843462439-9d59709c9135?q=80&w=3540&auto=format&fit=crop', featured: false },
-            { id: 6, make: 'Porsche', model: 'Taycan Turbo S', year: 2024, price: 194900, mileage: 2100, fuel: 'Electric', engine: 'Dual Electric Motors', transmission: '2-Speed Automatic', image: 'https://images.unsplash.com/photo-1620703318901-f4e0e2d14457?q=80&w=3540&auto=format&fit=crop', featured: false },
-            { id: 7, make: 'Audi', model: 'R8 V10 Performance', year: 2023, price: 158600, mileage: 7500, fuel: 'Gasoline', engine: '5.2L V10', transmission: '7-Speed S Tronic', image: 'https://images.unsplash.com/photo-1612815154802-73c846f4f676?q=80&w=3540&auto=format&fit=crop', featured: false },
-            { id: 8, make: 'BMW', model: 'i8 Roadster', year: 2020, price: 163300, mileage: 12000, fuel: 'Hybrid', engine: '1.5L I3 Hybrid', transmission: '6-Speed Automatic', image: 'https://images.unsplash.com/photo-1541348263662-e3547435f3af?q=80&w=3456&auto=format&fit=crop', featured: false },
+            { id: 1, make: 'Porsche', model: '911 GT3 RS', year: 2023, price: 241300, mileage: 1500, fuel: 'Gasoline', engine: '4.0L Flat-6', transmission: 'PDK Auto', image: 'https://images.unsplash.com/photo-1617013755323-652cf3941b9c?q=80&w=3540&auto=format&fit=crop', featured: true, autonomy_level: 1 },
+            { id: 2, make: 'Ferrari', model: '296 GTB', year: 2024, price: 342000, mileage: 800, fuel: 'Hybrid', engine: '3.0L V6 Hybrid', transmission: '8-Speed DCT', image: 'https://images.unsplash.com/photo-1633663951290-05b1f148967b?q=80&w=3540&auto=format&fit=crop', featured: true, battery_kwh: 7.4, range_miles: 15, autonomy_level: 2 },
+            { id: 3, make: 'BMW', model: 'M4 Competition', year: 2024, price: 85000, mileage: 3000, fuel: 'Gasoline', engine: '3.0L Twin-Turbo I6', transmission: '8-Speed Auto', image: 'https://images.unsplash.com/photo-1632512918443-415814237c22?q=80&w=3540&auto=format&fit=crop', featured: true, autonomy_level: 2 },
+            { id: 4, make: 'Audi', model: 'RS e-tron GT', year: 2024, price: 147100, mileage: 1200, fuel: 'Electric', engine: 'Dual Electric Motors', transmission: '2-Speed Auto', image: 'https://images.unsplash.com/photo-1633568529238-608011b816a1?q=80&w=3456&auto=format&fit=crop', featured: true, battery_kwh: 93.4, range_miles: 232, autonomy_level: 3 },
+            { id: 5, make: 'Mercedes-Benz', model: 'AMG GT Black Series', year: 2022, price: 325000, mileage: 4000, fuel: 'Gasoline', engine: '4.0L Twin-Turbo V8', transmission: '7-Speed DCT', image: 'https://images.unsplash.com/photo-1618843462439-9d59709c9135?q=80&w=3540&auto=format&fit=crop', autonomy_level: 1 },
+            { id: 6, make: 'Porsche', model: 'Taycan Turbo S', year: 2024, price: 194900, mileage: 2100, fuel: 'Electric', engine: 'Dual Electric Motors', transmission: '2-Speed Auto', image: 'https://images.unsplash.com/photo-1620703318901-f4e0e2d14457?q=80&w=3540&auto=format&fit=crop', battery_kwh: 93.4, range_miles: 278, autonomy_level: 3 },
+            { id: 7, make: 'Audi', model: 'R8 V10 Performance', year: 2023, price: 158600, mileage: 7500, fuel: 'Gasoline', engine: '5.2L V10', transmission: '7-Speed S Tronic', image: 'https://images.unsplash.com/photo-1612815154802-73c846f4f676?q=80&w=3540&auto=format&fit=crop', autonomy_level: 1 },
+            { id: 8, make: 'Lucid', model: 'Air Grand Touring', year: 2023, price: 139000, mileage: 5000, fuel: 'Electric', engine: 'Dual Electric Motors', transmission: 'Direct Drive', image: 'https://images.unsplash.com/photo-1655312033481-9de73e445084?q=80&w=3540&auto=format&fit=crop', battery_kwh: 112, range_miles: 516, autonomy_level: 3 },
+            { id: 9, make: 'Rivian', model: 'R1S', year: 2024, price: 92000, mileage: 800, fuel: 'Electric', engine: 'Quad-Motor AWD', transmission: 'Direct Drive', image: 'https://images.unsplash.com/photo-1667793441334-a1c322df43c4?q=80&w=3456&auto=format&fit=crop', battery_kwh: 135, range_miles: 316, autonomy_level: 2 },
+            { id: 10, make: 'Tesla', model: 'Model S Plaid', year: 2023, price: 108490, mileage: 11000, fuel: 'Electric', engine: 'Tri-Motor AWD', transmission: 'Direct Drive', image: 'https://images.unsplash.com/photo-1617704548622-0d47e536785f?q=80&w=3540&auto=format&fit=crop', battery_kwh: 100, range_miles: 396, autonomy_level: 4 },
         ];
         
         // --- State Management ---
         let compareList = [];
+        let currentCarForScheduling = null;
+        let selectedDateForScheduling = null;
 
-        // --- Page Navigation Logic ---
+        // --- SPA Navigation Logic ---
         const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('main section, footer section');
+        const pages = document.querySelectorAll('.page-section');
+        const headerNavLinks = document.querySelectorAll('.main-nav .nav-link');
 
         const navigateToPage = (pageId) => {
-            sections.forEach(sec => sec.classList.remove('active'));
+            pages.forEach(p => p.classList.remove('active'));
             document.getElementById(pageId)?.classList.add('active');
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.page === pageId) {
-                    link.classList.add('active');
-                }
+            headerNavLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageId);
             });
             window.scrollTo(0, 0);
         };
@@ -844,216 +1047,293 @@
                 navigateToPage(link.dataset.page);
             });
         });
-        
-        // --- Car Card HTML Generator ---
+
+        // --- Universal Car Card Generator ---
         const createCarCard = (car) => {
             return `
                 <div class="car-card">
-                    <img src="${car.image}" alt="${car.make} ${car.model}" class="car-card-img">
+                    <div class="car-card-img-container">
+                        <img src="${car.image}" alt="${car.make} ${car.model}" class="car-card-img">
+                    </div>
                     <div class="car-card-content">
                         <h3 class="car-card-title">${car.year} ${car.make} ${car.model}</h3>
                         <p class="car-card-price">$${car.price.toLocaleString()}</p>
                         <div class="car-card-specs">
-                            <span><i class="fas fa-tachometer-alt"></i> ${car.mileage.toLocaleString()} mi</span>
-                            <span><i class="fas fa-gas-pump"></i> ${car.fuel}</span>
-                            <span><i class="fas fa-cogs"></i> ${car.transmission}</span>
-                            <span><i class="fas fa-industry"></i> ${car.engine}</span>
+                            <span>${car.mileage.toLocaleString()} mi</span>
+                            <span>${car.fuel}</span>
+                            <span>${car.transmission}</span>
+                            <span>${car.engine}</span>
                         </div>
                         <div class="car-card-actions">
-                            <button class="btn btn-secondary view-details-btn" data-id="${car.id}">Details</button>
-                            <button class="btn add-compare-btn" data-id="${car.id}">Compare</button>
+                            <button class="btn view-details-btn" data-id="${car.id}">Details</button>
+                            <button class="btn btn-secondary add-compare-btn" data-id="${car.id}">Compare</button>
                         </div>
                     </div>
                 </div>
             `;
         };
 
-        // --- Populate Featured Listings on Homepage ---
-        const featuredGrid = document.getElementById('featured-listings-grid');
-        if (featuredGrid) {
+        // --- Page Initializers ---
+        const initHomePage = () => {
+            const featuredGrid = document.getElementById('featured-listings-grid');
             const featuredCars = carDatabase.filter(car => car.featured);
             featuredGrid.innerHTML = featuredCars.map(createCarCard).join('');
-        }
-
-        // --- Populate and Filter All Listings Page ---
-        const allListingsGrid = document.getElementById('all-listings-grid');
-        const applyFiltersBtn = document.getElementById('apply-filters-btn');
-        const sortBySelect = document.getElementById('sort-by');
-        const resultsCountSpan = document.getElementById('results-count');
-
-        const populateAllListings = () => {
-            // Get filter values
-            const make = document.getElementById('filter-make').value;
-            const minPrice = parseInt(document.getElementById('filter-min-price').value) || 0;
-            const maxPrice = parseInt(document.getElementById('filter-max-price').value) || Infinity;
-            const minYear = parseInt(document.getElementById('filter-year').value) || 0;
-            const fuel = document.getElementById('filter-fuel').value;
-            const sortBy = sortBySelect.value;
-            
-            // Filter database
-            let filteredCars = carDatabase.filter(car => {
-                return (make === 'all' || car.make === make) &&
-                       (car.price >= minPrice && car.price <= maxPrice) &&
-                       (car.year >= minYear) &&
-                       (fuel === 'all' || car.fuel === fuel);
-            });
-            
-            // Sort database
-            filteredCars.sort((a, b) => {
-                switch(sortBy) {
-                    case 'price-asc': return a.price - b.price;
-                    case 'price-desc': return b.price - a.price;
-                    case 'year-desc': return b.year - a.year;
-                    default: return 0;
-                }
-            });
-
-            // Populate grid
-            allListingsGrid.innerHTML = filteredCars.map(createCarCard).join('');
-            resultsCountSpan.textContent = `Showing ${filteredCars.length} cars`;
+        };
+        
+        const initFilterOptions = () => {
+             const makes = [...new Set(carDatabase.map(c => c.make))].sort();
+             const years = [...new Set(carDatabase.map(c => c.year))].sort((a,b) => b-a);
+             const fuels = [...new Set(carDatabase.map(c => c.fuel))].sort();
+             
+             const makeSelect = document.getElementById('filter-make');
+             const yearSelect = document.getElementById('filter-year');
+             const fuelSelect = document.getElementById('filter-fuel');
+             
+             makeSelect.innerHTML = '<option value="all">All Manufacturers</option>' + makes.map(m => `<option value="${m}">${m}</option>`).join('');
+             yearSelect.innerHTML = '<option value="0">Any Year</option>' + years.map(y => `<option value="${y}">${y}</option>`).join('');
+             fuelSelect.innerHTML = '<option value="all">All Drivetrains</option>' + fuels.map(f => `<option value="${f}">${f}</option>`).join('');
         };
 
-        if (allListingsGrid) {
-            populateAllListings(); // Initial population
-            applyFiltersBtn.addEventListener('click', populateAllListings);
-            sortBySelect.addEventListener('change', populateAllListings);
-        }
+        const initListingsPage = () => {
+            const grid = document.getElementById('all-listings-grid');
+            const loader = document.getElementById('listings-loader');
+            const countSpan = document.getElementById('results-count');
+            
+            loader.style.display = 'flex';
+            
+            setTimeout(() => {
+                const filters = {
+                    make: document.getElementById('filter-make').value,
+                    minPrice: parseInt(document.getElementById('filter-min-price').value) || 0,
+                    maxPrice: parseInt(document.getElementById('filter-max-price').value) || Infinity,
+                    minYear: parseInt(document.getElementById('filter-year').value) || 0,
+                    fuel: document.getElementById('filter-fuel').value,
+                    sortBy: document.getElementById('sort-by').value,
+                };
+                
+                let filtered = carDatabase.filter(c => 
+                    (filters.make === 'all' || c.make === filters.make) &&
+                    (c.price >= filters.minPrice && c.price <= filters.maxPrice) &&
+                    (c.year >= filters.minYear) &&
+                    (filters.fuel === 'all' || c.fuel === filters.fuel)
+                );
+                
+                filtered.sort((a,b) => {
+                    switch(filters.sortBy){
+                        case 'price-asc': return a.price - b.price;
+                        case 'price-desc': return b.price - a.price;
+                        case 'year-desc': return b.year - a.year;
+                        case 'mileage-asc': return a.mileage - b.mileage;
+                        default: return 0;
+                    }
+                });
+
+                grid.innerHTML = filtered.map(createCarCard).join('');
+                countSpan.textContent = `${filtered.length} Units Found`;
+                loader.style.display = 'none';
+            }, 1000); // Simulate network latency
+        };
         
-        // --- View Details Button Logic (Event Delegation) ---
-        document.body.addEventListener('click', (e) => {
+        const initEVHubPage = () => {
+            // Populate filters
+            const evMakes = [...new Set(carDatabase.filter(c => c.fuel === 'Electric' || c.fuel === 'Hybrid').map(c => c.make))].sort();
+            document.getElementById('ev-filter-make').innerHTML = '<option value="all">All Manufacturers</option>' + evMakes.map(m => `<option value="${m}">${m}</option>`).join('');
+
+            // Range slider listener
+            const rangeSlider = document.getElementById('ev-filter-range');
+            const rangeValue = document.getElementById('ev-range-value');
+            rangeSlider.addEventListener('input', () => {
+                rangeValue.textContent = `${rangeSlider.value} miles`;
+            });
+            
+            filterEVs();
+        };
+
+        const filterEVs = () => {
+            const grid = document.getElementById('ev-listings-grid');
+            const filters = {
+                make: document.getElementById('ev-filter-make').value,
+                minRange: parseInt(document.getElementById('ev-filter-range').value),
+                minAutonomy: parseInt(document.getElementById('ev-filter-autonomy').value),
+            };
+
+            let evs = carDatabase.filter(c => (c.fuel === 'Electric' || c.fuel === 'Hybrid'));
+            let filtered = evs.filter(c => 
+                (filters.make === 'all' || c.make === filters.make) &&
+                (c.range_miles >= filters.minRange) &&
+                (c.autonomy_level >= filters.minAutonomy)
+            );
+            grid.innerHTML = filtered.map(createCarCard).join('');
+        };
+        
+        const initAIPage = () => {
+            const form = document.getElementById('ai-input-form');
+            form.addEventListener('submit', handleAIQuery);
+        };
+
+
+        // --- Event Listeners ---
+        document.getElementById('apply-filters-btn')?.addEventListener('click', initListingsPage);
+        document.getElementById('sort-by')?.addEventListener('change', initListingsPage);
+        document.getElementById('apply-ev-filters-btn')?.addEventListener('click', filterEVs);
+
+        // --- Global Click Handler (Delegation) ---
+        document.body.addEventListener('click', e => {
             if (e.target.classList.contains('view-details-btn')) {
-                const carId = parseInt(e.target.dataset.id);
-                const car = carDatabase.find(c => c.id === carId);
+                const car = carDatabase.find(c => c.id === parseInt(e.target.dataset.id));
                 populateDetailPage(car);
                 navigateToPage('detail-page');
             }
-             if (e.target.classList.contains('add-compare-btn')) {
-                const carId = parseInt(e.target.dataset.id);
-                addToCompare(carId);
-                e.target.textContent = 'Added!';
-                e.target.disabled = true;
-                setTimeout(() => {
-                    e.target.textContent = 'Compare';
-                    e.target.disabled = false;
-                }, 1500);
+            if (e.target.classList.contains('add-compare-btn')) {
+                addToCompare(parseInt(e.target.dataset.id));
+            }
+            if (e.target.id === 'ar-view-btn') {
+                document.getElementById('ar-modal').classList.add('active');
+            }
+             if (e.target.id === 'schedule-drive-btn') {
+                document.getElementById('schedule-modal').classList.add('active');
+            }
+            if (e.target.classList.contains('modal-close-btn')) {
+                e.target.closest('.modal-overlay').classList.remove('active');
             }
         });
 
-        // --- Populate Detail Page ---
+        // --- Detail Page Logic ---
         const populateDetailPage = (car) => {
-            document.getElementById('detail-main-img').src = car.image;
-            document.getElementById('detail-title').textContent = `${car.year} ${car.make} ${car.model}`;
-            document.getElementById('detail-price').textContent = `$${car.price.toLocaleString()}`;
-            
-            const specList = document.getElementById('detail-specs');
-            specList.innerHTML = `
-                <li><strong>Make:</strong> <span>${car.make}</span></li>
-                <li><strong>Model:</strong> <span>${car.model}</span></li>
-                <li><strong>Year:</strong> <span>${car.year}</span></li>
-                <li><strong>Mileage:</strong> <span>${car.mileage.toLocaleString()} mi</span></li>
-                <li><strong>Engine:</strong> <span>${car.engine}</span></li>
-                <li><strong>Transmission:</strong> <span>${car.transmission}</span></li>
-                <li><strong>Fuel Type:</strong> <span>${car.fuel}</span></li>
-            `;
-            // Also update the finance calculator price
-            document.getElementById('calc-price').value = car.price;
+             currentCarForScheduling = car;
+             document.getElementById('detail-main-img').src = car.image;
+             document.getElementById('detail-title').textContent = `${car.year} ${car.make} ${car.model}`;
+             document.getElementById('detail-price').textContent = `$${car.price.toLocaleString()}`;
+             document.getElementById('detail-description').textContent = `A prime example of the ${car.make} ${car.model}, this ${car.year} unit combines breathtaking performance with unparalleled luxury. With only ${car.mileage.toLocaleString()} miles, it represents a unique opportunity for the discerning collector or enthusiast.`;
+             
+             let specsHTML = `
+                <div class="spec-item"><span class="label">Mileage</span><span class="value">${car.mileage.toLocaleString()} mi</span></div>
+                <div class="spec-item"><span class="label">Engine</span><span class="value">${car.engine}</span></div>
+                <div class="spec-item"><span class="label">Drivetrain</span><span class="value">${car.fuel}</span></div>
+                <div class="spec-item"><span class="label">Transmission</span><span class="value">${car.transmission}</span></div>
+                <div class="spec-item"><span class="label">Autonomy</span><span class="value">Level ${car.autonomy_level}</span></div>
+             `;
+             if(car.fuel === 'Electric' || car.fuel === 'Hybrid') {
+                 specsHTML += `
+                    <div class="spec-item"><span class="label">Range</span><span class="value">${car.range_miles} mi</span></div>
+                    <div class="spec-item"><span class="label">Battery</span><span class="value">${car.battery_kwh} kWh</span></div>
+                 `;
+             }
+             document.getElementById('detail-specs').innerHTML = specsHTML;
+             
+             document.getElementById('schedule-modal-title').textContent = `Schedule Test Drive: ${car.make} ${car.model}`;
         };
         
-        // --- Finance Calculator Logic ---
-        const calculateFinanceBtn = document.getElementById('calculate-finance-btn');
-        calculateFinanceBtn.addEventListener('click', () => {
-            const price = parseFloat(document.getElementById('calc-price').value);
-            const downPayment = parseFloat(document.getElementById('calc-downpayment').value) || 0;
-            const interestRate = parseFloat(document.getElementById('calc-interest').value) / 100 / 12;
-            const termMonths = parseInt(document.getElementById('calc-term').value);
-            
-            const principal = price - downPayment;
-            if (principal > 0 && interestRate > 0) {
-                const monthlyPayment = principal * (interestRate * Math.pow(1 + interestRate, termMonths)) / (Math.pow(1 + interestRate, termMonths) - 1);
-                document.getElementById('finance-result').textContent = `Estimated Monthly Payment: $${monthlyPayment.toFixed(2)}`;
-            } else {
-                document.getElementById('finance-result').textContent = 'Please enter valid details.';
+        // --- AI Concierge Logic ---
+        const aiChatWindow = document.getElementById('ai-chat-window');
+        const aiUserInput = document.getElementById('ai-user-input');
+
+        const addAiMessage = (content, sender = 'AURA') => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = sender === 'user' ? 'ai-message user' : 'ai-message';
+            messageDiv.innerHTML = `<p>${content}</p>`;
+            aiChatWindow.appendChild(messageDiv);
+            aiChatWindow.scrollTop = aiChatWindow.scrollHeight;
+        };
+        
+        const handleAIQuery = (e) => {
+            e.preventDefault();
+            const query = aiUserInput.value.trim().toLowerCase();
+            if (!query) return;
+
+            addAiMessage(aiUserInput.value, 'user');
+            aiUserInput.value = '';
+
+            setTimeout(() => {
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.className = 'ai-message';
+                thinkingDiv.innerHTML = `<p><strong>AURA AI:</strong> Processing... <span class="typing-indicator"><span></span><span></span><span></span></span></p>`;
+                aiChatWindow.appendChild(thinkingDiv);
+                aiChatWindow.scrollTop = aiChatWindow.scrollHeight;
+
+                setTimeout(() => {
+                    aiChatWindow.removeChild(thinkingDiv);
+                    let response = "I'm sorry, I couldn't find a direct match. Could you rephrase your query?";
+                    let results = [];
+
+                    if (query.includes('electric')) {
+                        results = carDatabase.filter(c => c.fuel === 'Electric');
+                        response = `I've identified ${results.length} electric vehicles. The most notable is the ${results[0].make} ${results[0].model}.`;
+                    } else if (query.includes('fast') || query.includes('performance')) {
+                         results = carDatabase.filter(c => c.price > 150000 && c.fuel === 'Gasoline');
+                         response = `For high performance, I recommend the ${results[0].make} ${results[0].model}.`;
+                    }
+                    
+                    if (results.length > 0) {
+                         response += " Here are the top results based on your query:";
+                         results.slice(0,2).forEach(car => {
+                             response += `<br>- ${car.year} ${car.make} ${car.model} ($${car.price.toLocaleString()})`;
+                         });
+                    }
+
+                    addAiMessage(`<strong>AURA AI:</strong> ${response}`);
+                }, 2000);
+            }, 500);
+        };
+        
+        // --- Scheduler Logic ---
+        const calendarBody = document.getElementById('calendar-body');
+        const monthYearSpan = document.getElementById('month-year');
+        const confirmScheduleBtn = document.getElementById('confirm-schedule-btn');
+        let currentDate = new Date();
+
+        function renderCalendar() {
+             calendarBody.innerHTML = '';
+             const year = currentDate.getFullYear();
+             const month = currentDate.getMonth();
+             monthYearSpan.textContent = `${currentDate.toLocaleString('default', { month: 'long' })} ${year}`;
+             
+             const firstDay = new Date(year, month, 1).getDay();
+             const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+             for (let i = 0; i < firstDay; i++) {
+                 calendarBody.innerHTML += `<div class="calendar-day inactive-day"></div>`;
+             }
+
+             for (let day = 1; day <= daysInMonth; day++) {
+                 const dayEl = document.createElement('div');
+                 dayEl.textContent = day;
+                 dayEl.classList.add('calendar-day', 'active-day');
+                 dayEl.dataset.date = new Date(year, month, day).toISOString();
+                 calendarBody.appendChild(dayEl);
+             }
+        }
+        
+        calendarBody.addEventListener('click', (e) => {
+            if (e.target.classList.contains('active-day')) {
+                document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected-day'));
+                e.target.classList.add('selected-day');
+                selectedDateForScheduling = new Date(e.target.dataset.date);
+                confirmScheduleBtn.disabled = false;
             }
         });
 
-        // --- Comparison Logic ---
-        const compareCountSpan = document.getElementById('compare-count');
-        const compareContainer = document.getElementById('compare-container');
-
-        const addToCompare = (carId) => {
-            if (compareList.length < 4 && !compareList.includes(carId)) {
-                compareList.push(carId);
-                updateCompareView();
-            }
-        };
-
-        const removeFromCompare = (carId) => {
-            compareList = compareList.filter(id => id !== carId);
-            updateCompareView();
-        };
-
-        const updateCompareView = () => {
-            compareCountSpan.textContent = compareList.length;
-            
-            if(compareList.length === 0) {
-                 compareContainer.innerHTML = '<div class="placeholder-card"><h3>Your comparison list is empty.</h3><p>Click the "Compare" button on any car listing to add it here.</p></div>';
-                 return;
-            }
-
-            const carsToCompare = carDatabase.filter(car => compareList.includes(car.id));
-            
-            let tableHTML = '<table class="compare-table"><thead><tr><th class="feature-col">Feature</th>';
-            carsToCompare.forEach(car => {
-                tableHTML += `<th>${car.year} ${car.make} ${car.model}</th>`;
-            });
-            tableHTML += '</tr></thead><tbody>';
-
-            // Image row
-            tableHTML += '<tr><td class="feature-col">Image</td>';
-            carsToCompare.forEach(car => {
-                tableHTML += `<td><img src="${car.image}" alt="${car.model}"></td>`;
-            });
-            tableHTML += '</tr>';
-
-            // Price row
-            tableHTML += '<tr><td class="feature-col">Price</td>';
-            carsToCompare.forEach(car => {
-                tableHTML += `<td>$${car.price.toLocaleString()}</td>`;
-            });
-            tableHTML += '</tr>';
-            
-            // Specs rows
-            const specs = ['mileage', 'engine', 'transmission', 'fuel'];
-            specs.forEach(spec => {
-                tableHTML += `<tr><td class="feature-col" style="text-transform: capitalize;">${spec}</td>`;
-                carsToCompare.forEach(car => {
-                    tableHTML += `<td>${car[spec]}</td>`;
-                });
-                tableHTML += '</tr>';
-            });
-            
-            // Action row
-            tableHTML += '<tr><td class="feature-col">Action</td>';
-            carsToCompare.forEach(car => {
-                tableHTML += `<td><button class="btn btn-danger remove-compare-btn" data-id="${car.id}">Remove</button></td>`;
-            });
-            tableHTML += '</tr>';
-
-
-            tableHTML += '</tbody></table>';
-            compareContainer.innerHTML = tableHTML;
-        };
-
-        compareContainer.addEventListener('click', e => {
-            if (e.target.classList.contains('remove-compare-btn')) {
-                const carId = parseInt(e.target.dataset.id);
-                removeFromCompare(carId);
-            }
+        document.getElementById('prev-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+        document.getElementById('next-month').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+        
+        confirmScheduleBtn.addEventListener('click', () => {
+             const confirmationP = document.getElementById('schedule-confirmation');
+             confirmationP.textContent = `Request sent for ${currentCarForScheduling.make} ${currentCarForScheduling.model} on ${selectedDateForScheduling.toLocaleDateString()}. Our team will contact you to confirm.`;
+             setTimeout(() => { document.getElementById('schedule-modal').classList.remove('active'); confirmationP.textContent=''; }, 4000);
         });
         
-        // Initialize comparison view
-        updateCompareView();
+        // --- Chat Widget Logic ---
+        document.getElementById('chat-fab').addEventListener('click', () => {
+            document.getElementById('chat-window').classList.toggle('active');
+        });
 
+        // --- Initialization ---
+        initHomePage();
+        initFilterOptions();
+        initListingsPage(); // Initial load
+        initEVHubPage();
+        initAIPage();
+        renderCalendar();
     });
     </script>
 </body>
